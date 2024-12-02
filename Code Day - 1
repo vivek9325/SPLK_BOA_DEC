@@ -4,3 +4,11 @@ Table
 
 index=_internal 
 | table source, sourcetype, component, group
+
+
+Rename and Dedup -----
+
+index=_internal 
+| dedup source
+| table source, sourcetype, component, group 
+| rename source as log_path, sourcetype as data_type, group as "data type"
