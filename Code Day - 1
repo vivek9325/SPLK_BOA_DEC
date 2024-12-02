@@ -1,1 +1,6 @@
+SPL Commands ----
 
+Table 
+
+index=_internal 
+| table source, sourcetype, component, group
