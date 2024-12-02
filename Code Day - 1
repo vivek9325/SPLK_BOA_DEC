@@ -22,3 +22,12 @@ index=_internal
 | table kb, bytes 
 | eval state = if(bytes>114754, "high", "low") 
 | eval status = case(bytes>=0 AND bytes<2000,"low", bytes>=2000 AND bytes<5000,"Medium", bytes>=5000 AND bytes<10000,"High",1=1,"Critical")
+
+
+index=_internal 
+| dedup bytes 
+| eval kb=round(bytes/1024,3)." KB" 
+| table kb, bytes 
+| eval state = if(bytes>114754, "high", "low") 
+| eval status = case(bytes>=0 AND bytes<2000,"low", bytes>=2000 AND bytes<5000,"Medium", bytes>=5000 AND bytes<10000,"High",1=1,"Critical") 
+| stats count by status
