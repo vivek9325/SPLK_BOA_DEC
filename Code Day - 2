@@ -11,3 +11,6 @@ Rex ----
 source="data.txt" index="vk_idx" sourcetype="vk_txt" 
 | rex field=_raw "From:\s+<(?P<from_mail_id>.*)>\s+To" 
 | table from_mail_id, _raw
+
+Rex101 ---- https://regex101.com/
+rex cheat sheet --- https://www.debuggex.com/cheatsheet/regex/pcre
