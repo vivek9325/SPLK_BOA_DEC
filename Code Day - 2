@@ -19,3 +19,8 @@ rex cheat sheet --- https://www.debuggex.com/cheatsheet/regex/pcre
 source="data.txt" index="vk_idx" sourcetype="vk_txt" 
 | rex field=_raw "From:\s+<(?P<from_mail_id>.*)>\s+To:\s+<(?P<to_id>.*)>" 
 | table from_mail_id,to_id _raw
+
+
+| makeresults 
+| eval text="vk;search;saved_search" 
+| rex field=text "(?P<username>\w+);(?P<app_name>\w+);(?P<savedsearchname>\w+)"
