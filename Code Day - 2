@@ -56,3 +56,15 @@ index=vk_idx source="sample_tickets.csv"
 | append 
     [ search index=vk_idx source=vendors.csv 
     | stats count as total by Vendor]
+
+
+Appendcols ----
+
+index=vk_idx source="sample_tickets.csv" 
+| stats count by current_ticket_state 
+| appendcols 
+    [ search index=vk_idx source=vendors.csv 
+    | stats count as total by Vendor]
+
+AppendPipe ----
+
