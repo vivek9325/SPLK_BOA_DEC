@@ -1,0 +1,6 @@
+Date and Time Fucntions ---- 
+
+index="vk_idx" sourcetype="csv" 
+| table _time,time_submitted, current_ticket_state 
+| eval time_submitted_epoc = strptime(time_submitted,"%d-%m-%y %H:%M")
+| eval new_time_submitted = strftime(time_submitted_epoc,"%d-%B-%Y %A")
