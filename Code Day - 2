@@ -38,3 +38,14 @@ index=vk_idx source="sample_tickets.csv"
 | addcoltotals label=sum labelfield=current_ticket_state 
 | addtotals
 
+Search and Where Commands -----
+
+index=vk_idx source="sample_tickets.csv" 
+| chart count by current_ticket_state, asset_id 
+| addcoltotals label=sum labelfield=current_ticket_state 
+| addtotals fieldname=count 
+| rename RTBS/Portal as RTBS 
+| where RTBS >= Sharepoint 
+| search RTBS >2
+
+
