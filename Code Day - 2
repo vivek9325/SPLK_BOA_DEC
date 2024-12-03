@@ -24,3 +24,8 @@ source="data.txt" index="vk_idx" sourcetype="vk_txt"
 | makeresults 
 | eval text="vk;search;saved_search" 
 | rex field=text "(?P<username>\w+);(?P<app_name>\w+);(?P<savedsearchname>\w+)"
+
+
+| makeresults 
+| eval credit_card_number="1234-5678-9101-1213" 
+| rex field=credit_card_number "(?P<digits>\d{4})" max_match=0
