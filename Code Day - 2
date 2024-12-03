@@ -49,3 +49,10 @@ index=vk_idx source="sample_tickets.csv"
 | search RTBS >2
 
 
+Append / AppendCol / AppendPipe ----
+
+index=vk_idx source="sample_tickets.csv" 
+| stats count by current_ticket_state 
+| append 
+    [ search index=vk_idx source=vendors.csv 
+    | stats count as total by Vendor]
