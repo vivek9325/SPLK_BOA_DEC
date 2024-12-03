@@ -74,3 +74,12 @@ index=vk_idx source="sample_tickets.csv"
     [ stats sum(count) as count by severity 
     | eval current_ticket_state="total sum"] 
 | sort severity
+
+
+Join ----
+
+index=vk_idx source="sample_tickets.csv" 
+| stats count by severity, current_ticket_state, ticket_number 
+| join type=inner ticket_number 
+    [ search index=vk_idx source=sample_tickets.csv 
+    | table ticket_number, asset_id]
