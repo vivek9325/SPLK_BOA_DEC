@@ -5,3 +5,7 @@ Macros ------
 | sort - total 
 | head 1 
 | table total
+
+
+index=vk_idx source="Sample_tickets.csv" 
+| stats count by severity, current_ticket_state
