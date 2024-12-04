@@ -1,0 +1,7 @@
+Macros ------
+
+`vk_no_arg` 
+| streamstats count as total 
+| sort - total 
+| head 1 
+| table total
