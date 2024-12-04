@@ -9,3 +9,18 @@ Macros ------
 
 index=vk_idx source="Sample_tickets.csv" 
 | stats count by severity, current_ticket_state
+
+
+lookup ----
+
+
+index=vk_idx source="sample_tickets.csv" 
+| table ticket_number, current_ticket_state, severity 
+| lookup vk_sample_lookup.csv ticket_number OUTPUT time_taken as time_consumed
+
+
+
+| inputlookup vk_sample_lookup.csv 
+| dedup ticket_number 
+| outputlookup append=false vk_sample_lookup.csv
+
