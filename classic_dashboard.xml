@@ -1,0 +1,169 @@
+<form version="1.1" theme="dark">
+  <label>vk_dashboard</label>
+  
+  <search id="base_search1">
+    
+    <query>index=vk_idx source=Sample_tickets.csv | stats count by severity, application_name, asset_id, current_ticket_state</query>
+    
+    <earliest>0</earliest>
+    <latest>now</latest>
+    
+  </search>
+  
+  <search id="vk_svsearch" ref="vk_savedsearch"></search>
+  
+  <fieldset submitButton="true" autoRun="false">
+    <input type="time" token="time_token" searchWhenChanged="false">
+      <label>Time</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="app_name" searchWhenChanged="false">
+      <label>Application Name</label>
+      <fieldForLabel>application_name</fieldForLabel>
+      <fieldForValue>application_name</fieldForValue>
+      
+      <search base="base_search1">
+        <query>| dedup application_name 
+| table application_name</query>
+      </search>
+      
+      
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="multiselect" token="asset_id" searchWhenChanged="false">
+      <label>Asset ID</label>
+      <fieldForLabel>asset_id</fieldForLabel>
+      <fieldForValue>asset_id</fieldForValue>
+      
+      
+      <search base="vk_svsearch">
+        <query>| stats count by asset_id</query>
+      </search>
+      
+      
+      <valuePrefix>asset_id="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <delimiter> OR </delimiter>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <default>*</default>
+    </input>
+    <input type="radio" token="sev" searchWhenChanged="false">
+      <label>severity</label>
+      <fieldForLabel>priority</fieldForLabel>
+      <fieldForValue>severity</fieldForValue>
+      <search>
+        <query>index=vk_idx source=Sample_tickets.csv | stats count by severity|eval priority="S".severity</query>
+        <earliest>0</earliest>
+        <latest></latest>
+      </search>
+      <initialValue>1</initialValue>
+    </input>
+    <input type="checkbox" token="state" searchWhenChanged="false">
+      <label>ticket state</label>
+      <fieldForLabel>current_ticket_state</fieldForLabel>
+      <fieldForValue>current_ticket_state</fieldForValue>
+      <search>
+        <query>index=vk_idx source=Sample_tickets.csv | stats count by current_ticket_state</query>
+        <earliest>0</earliest>
+        <latest></latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>count by ticket state</title>
+      <chart>
+        
+        <search base="base_search1">
+          <query>|search application_name=$app_name$ $asset_id$|stats count by current_ticket_state</query>
+        </search>
+        
+        
+        
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">preview</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <drilldown>
+          <set token="tok1">$click.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel>
+      <title>count by severity - $tok1$</title>
+      <chart>
+        <title>sev count</title>
+        <search>
+          <query>index=vk_idx source="sample_tickets.csv" |stats count by severity</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</form>
