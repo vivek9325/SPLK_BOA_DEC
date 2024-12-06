@@ -36,3 +36,29 @@ index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_mat
         </condition>
       </change>
 
+
+
+
+      <change>
+        <condition label="Both">
+          <set token="set_both_panel"></set>
+          <unset token="set_gender_panel"></unset>
+          <unset token="set_ethinicity_panel"></unset>
+        </condition>
+        <condition value="gender">
+          <set token="set_gender_panel"></set>
+          <unset token="set_ethinicity_panel"></unset>
+          <unset token="set_both_panel"></unset>
+        </condition>
+        <condition label="Ethinicity">
+          <set token="set_ethinicity_panel"></set>
+          <unset token="set_both_panel"></unset>
+          <unset token="set_gender_panel"></unset>
+        </condition>
+        <condition>
+          <set token="set_both_panel"></set>
+          <set token="set_ethinicity_panel"></set>
+          <set token="set_gender_panel"></set>
+        </condition>
+      </change>
+
