@@ -91,3 +91,19 @@ index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_mat
           </done>
 
 
+ <input type="radio" token="all">
+        <label></label>
+        <choice value="all">All</choice>
+      </input>
+      <input type="radio" token="math">
+        <label></label>
+        <choice value="math">Math</choice>
+      </input>
+      <input type="radio" token="reading">
+        <label></label>
+        <choice value="reading">Reading</choice>
+      </input>
+      <input type="radio" token="writing">
+        <label></label>
+        <choice value="writing">Writing</choice>
+      </input>
