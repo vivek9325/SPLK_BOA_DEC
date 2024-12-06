@@ -107,3 +107,69 @@ index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_mat
         <label></label>
         <choice value="writing">Writing</choice>
       </input>
+
+==================================================================================================================================================================
+
+<input type="radio" token="all">
+        <label></label>
+        <choice value="all">All</choice>
+        <change>
+        <condition value="all">
+          <set token="search_string1">stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by race_ethnicity</set>
+          <unset token="math"></unset>
+          <unset token="form.math"></unset>
+          <unset token="reading"></unset>
+          <unset token="form.reading"></unset>
+          <unset token="writing"></unset>
+          <unset token="form.writing"></unset>
+        </condition>
+        </change>
+      </input>
+      
+      <input type="radio" token="math">
+        <label></label>
+        <choice value="math">Math</choice>
+        <change>
+        <condition value="math">
+          <set token="search_string1">stats avg("math score") as avg_math_score by race_ethnicity</set>
+          <unset token="all"></unset>
+          <unset token="form.all"></unset>
+          <unset token="reading"></unset>
+          <unset token="form.reading"></unset>
+          <unset token="writing"></unset>
+          <unset token="form.writing"></unset>
+        </condition>
+        </change>
+      </input>
+      
+      <input type="radio" token="reading">
+        <label></label>
+        <choice value="reading">Reading</choice>
+        <change>
+        <condition value="reading">
+          <set token="search_string1">stats avg("reading score") as avg_reading_score by race_ethnicity</set>
+          <unset token="math"></unset>
+          <unset token="form.math"></unset>
+          <unset token="all"></unset>
+          <unset token="form.all"></unset>
+          <unset token="writing"></unset>
+          <unset token="form.writing"></unset>
+        </condition>
+        </change>
+      </input>
+      
+      <input type="radio" token="writing">
+        <label></label>
+        <choice value="writing">Writing</choice>
+        <change>
+        <condition value="writing">
+          <set token="search_string1">stats avg("writing score") as avg_writing_score by race_ethnicity</set>
+          <unset token="math"></unset>
+          <unset token="form.math"></unset>
+          <unset token="reading"></unset>
+          <unset token="form.reading"></unset>
+          <unset token="all"></unset>
+          <unset token="form.all"></unset>
+        </condition>
+        </change>
+      </input>
