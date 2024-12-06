@@ -17,3 +17,22 @@ from Vivek to everyone:    3:24 PM
 index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by race_ethnicity
 from Vivek to everyone:    3:24 PM
 index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by gender, race_ethnicity
+
+
+     <change>
+        <condition label="Both">
+          <set token="set_both_panel"></set>
+        </condition>
+        <condition value="gender">
+          <set token="set_gender_panel"></set>
+        </condition>
+        <condition label="Ethinicity">
+          <set token="set_ethinicity_panel"></set>
+        </condition>
+        <condition>
+          <set token="set_both_panel"></set>
+          <set token="set_ethinicity_panel"></set>
+          <set token="set_gender_panel"></set>
+        </condition>
+      </change>
+
