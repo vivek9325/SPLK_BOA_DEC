@@ -1,0 +1,19 @@
+from Vivek to everyone:    3:19 PM
+1. Male Count Single Value Visualization Panel
+from Vivek to everyone:    3:19 PM
+2. Female Count Single Value Visualization
+from Vivek to everyone:    3:19 PM
+3. Avg. Score by Gender
+from Vivek to everyone:    3:19 PM
+4. Avg Score by Ethinicity 
+from Vivek to everyone:    3:19 PM
+5. Avg Score by both gender and ethinicity in trllis chart
+from Vivek to everyone:    3:21 PM
+index=main source="StudentsPerformance.csv" | stats count by gender | where gender="female" | fields count
+from Vivek to everyone:    3:23 PM
+from Vivek to everyone:    3:23 PM
+index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by gender
+from Vivek to everyone:    3:24 PM
+index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by race_ethnicity
+from Vivek to everyone:    3:24 PM
+index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by gender, race_ethnicity
