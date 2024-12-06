@@ -62,3 +62,20 @@ index=main source="StudentsPerformance.csv" | stats avg("math score") as avg_mat
         </condition>
       </change>
 
+
+        <change>
+          
+          <condition value="math">
+            <set token="search_string">| stats avg("math score") as avg_math_score by gender</set>
+          </condition>
+          <condition value="reading">
+            <set token="search_string">| stats avg("reading score") as avg_reading_score by gender</set>
+          </condition>
+          <condition value="writing">
+            <set token="search_string">| stats avg("writing score") as avg_writing_score by gender</set>
+          </condition>
+           <condition value="all">
+            <set token="search_string">|stats avg("math score") as avg_math_score, avg("reading score") as avg_reading_score, avg("writing score") as avg_writing_score by gender</set>
+          </condition>
+          
+        </change>
